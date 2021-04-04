@@ -52,14 +52,24 @@ namespace Dogo.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Imie")]
+            public string Imie { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Nazwisko")]
+            public string Nazwisko { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "{0} musi być przynjmniej {2} i maksymalnie {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Hasło")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Powtórz Hasło")]
+            [Compare("Password", ErrorMessage = "Hasła się nie zgadzają.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -75,7 +85,7 @@ namespace Dogo.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new DogoUser { UserName = Input.Email, Email = Input.Email };
+                var user = new DogoUser { UserName = Input.Email, Email = Input.Email, Imie = Input.Imie, Nazwisko = Input.Nazwisko };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
