@@ -20,7 +20,13 @@ namespace Dogo.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("DogoContextConnection")));
 
-                services.AddDefaultIdentity<DogoUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<DogoUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
                     .AddEntityFrameworkStores<DogoContext>();
             });
         }
