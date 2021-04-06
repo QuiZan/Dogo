@@ -20,8 +20,29 @@ namespace Dogo.Controllers
             _logger = logger;
         }
 
+        DogoDB dbop = new DogoDB();
+
         public IActionResult Index()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Index([Bind] DogModel emp)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                  string res = dbop.Saverecord(emp);
+                    TempData["msg"] = res;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+            
+            
             return View();
         }
 
@@ -35,5 +56,7 @@ namespace Dogo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

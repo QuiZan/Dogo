@@ -1,8 +1,8 @@
 ﻿@model Dogo.Models.DogModel
 
-
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "AddDog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <form asp-action="Index" class="form-horizontal">
@@ -34,7 +34,7 @@
         <input type="submit" value="Submit" class="btn btn-primary" />
     </div>
 </form>
-@{
+@{ 
     if (@TempData["msg"] != null)
     {
         <script>
