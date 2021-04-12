@@ -26,14 +26,18 @@ namespace Dogo.Controllers
         {
             return View();
         }
+        public IActionResult AddDog()
+        {
+            return View();
+        }
         [HttpPost]
-        public IActionResult Index([Bind] DogModel emp)
+        public IActionResult AddDog([Bind] DogModel emp)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                  string res = dbop.Saverecord(emp);
+                    string res = dbop.Saverecord(emp);
                     TempData["msg"] = res;
                 }
             }
@@ -41,10 +45,12 @@ namespace Dogo.Controllers
             {
                 TempData["msg"] = ex.Message;
             }
-            
-            
+
+
             return View();
         }
+        
+       
 
         public IActionResult Privacy()
         {
